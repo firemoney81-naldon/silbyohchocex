@@ -1,23 +1,561 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD (FAQPage) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "인터넷 실비보험이 설계사 가입보다 저렴한 이유는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "인터넷 다이렉트 실비보험은 보험 설계사를 통하지 않고 고객이 직접 온라인으로 가입하기 때문에, 설계사에게 지급되는 수수료와 사업비가 절감됩니다. 이로 인해 동일한 보장 내용이라도 일반 채널 대비 평균적으로 10~20%가량 저렴하게 가입할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "4세대 실비보험의 가장 큰 특징은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "4세대 실비보험은 급여(필수 치료)와 비급여(선택적 치료) 항목의 보험료가 분리되어 있으며, 특히 비급여 항목의 보험료에 할증/할인 제도가 적용됩니다. 즉, 비급여 진료를 많이 받으면 다음 갱신 시 보험료가 할증되고, 진료를 받지 않으면 할인을 받을 수 있습니다. 이는 실손보험의 지속 가능성을 높이기 위한 조치입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "실비보험 가입 시 어떤 보장을 우선적으로 고려해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "실비보험은 가입 시 급여 항목의 보장 범위(자기부담금 비율)와 비급여 특약(도수치료, 주사제, MRI 등)의 한도 및 횟수를 꼼꼼히 확인해야 합니다. 특히 4세대 실비보험에서는 비급여 항목을 자주 이용할 경우 보험료 부담이 커지므로, 자신의 건강 상태와 의료 이용 습관에 맞춰 보장 구성을 선택하는 것이 중요합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "실비보험의 갱신 주기와 보험료 인상률은 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재 판매되는 4세대 실비보험은 1년마다 갱신되며, 5년마다 재가입을 통해 보장 내용이 변경될 수 있습니다. 보험료는 연령 증가와 의료수가 상승률, 손해율 등에 따라 인상될 수 있으며, 2026년에는 평균적으로 일정 수준의 인상이 예정되어 있습니다. 다만, 비급여 진료 이용량이 적다면 오히려 할인을 받을 수도 있습니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* CSS 변수 설정 */
+        :root {
+            --primary-color: #0A2B4E; /* 진한 파란색 */
+            --secondary-color: #2F6FD5; /* 밝은 파란색 */
+            --accent-color: #2ECC71; /* 녹색 계열 (강조) */
+            --text-color: #333; /* 기본 텍스트 색상 */
+            --light-text-color: #555; /* 보조 텍스트 색상 */
+            --bg-light: #F7F9FC; /* 밝은 배경 */
+            --bg-medium: #E9EBF2; /* 중간 배경 */
+            --bg-dark: #1E3A8A; /* 어두운 배경 */
+            --btn-cta: #FF5722; /* CTA 버튼 색상 (주황색 계열) */
+            --border-color: #DDE0E5; /* 경계선 색상 */
+        }
+        
+        /* 폰트 설정 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        /* 기본 스타일 */
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: var(--bg-light); color: var(--text-color); line-height: 1.7; font-size: 16px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+        
+        /* 섹션별 스타일 */
+        section { padding: 80px 0; }
+        .bg-white { background-color: #fff; }
+        .bg-dark-blue { background-color: var(--bg-dark); color: #fff; }
+
+        /* 헤더: 로고와 상위 메뉴 */
+        header { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        header h1 { margin: 0; font-size: 2.5em; color: var(--primary-color); }
+        header h1 a { text-decoration: none; color: inherit; font-weight: 700; }
+
+        /* 히어로 섹션: 핵심 정보와 CTA */
+        .hero { background: linear-gradient(135deg, var(--bg-dark), var(--secondary-color)); color: #fff; text-align: center; padding: 100px 20px; }
+        .hero h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 700; line-height: 1.3; }
+        .hero h1 span { color: var(--accent-color); font-weight: 800; }
+        .hero p { font-size: 1.4em; margin-bottom: 40px; font-weight: 300; opacity: 0.9; }
+        
+        /* CTA 버튼: 강렬한 시각적 피드백 */
+        .cta-btn { background-color: var(--btn-cta); color: #fff; padding: 18px 40px; font-size: 1.3em; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background-color: #e64a19; transform: translateY(-3px); }
+
+        /* 비교견적 폼: 시각적으로 돋보이게 */
+        .compare-form-box { background-color: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 50px; }
+        .compare-form-box h2 { color: var(--primary-color); text-align: center; margin-bottom: 25px; font-size: 2em; font-weight: 700; }
+        .form-row { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
+        .form-row > div { flex: 1; min-width: 280px; }
+        .compare-form-box label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--primary-color); }
+        .compare-form-box input, .compare-form-box select { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 1em; }
+        .compare-form-box .form-footer { margin-top: 30px; text-align: center; }
+
+        /* 컨텐츠 섹션: 논리적이고 깔끔한 구분 */
+        .content-section { padding: 80px 0; }
+        .content-section h2 { font-size: 2.5em; color: var(--primary-color); text-align: center; margin-bottom: 40px; font-weight: 700; position: relative; }
+        .content-section h2:after { content: ''; display: block; width: 60px; height: 3px; background-color: var(--btn-cta); margin: 20px auto 0; }
+        .content-section h3 { font-size: 1.8em; color: var(--secondary-color); margin-top: 40px; margin-bottom: 15px; border-left: 5px solid var(--secondary-color); padding-left: 15px; font-weight: 600; }
+        .content-section p { font-size: 1.1em; color: var(--text-color); margin-bottom: 20px; line-height: 1.8; }
+
+        /* 특장점 그리드 */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center; margin-top: 30px; }
+        .feature-grid .item { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
+        .feature-grid .item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .feature-grid .item img { width: 60px; height: 60px; margin-bottom: 15px; }
+        .feature-grid .item h4 { font-size: 1.3em; color: var(--primary-color); margin-top: 0; margin-bottom: 10px; font-weight: 600; }
+        .feature-grid .item p { font-size: 1em; color: var(--light-text-color); line-height: 1.6; }
+
+        /* 키워드 리스트 (SEO 강화) */
+        .keyword-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .keyword-list li { background-color: var(--bg-medium); color: var(--secondary-color); padding: 10px 20px; margin: 5px; border-radius: 20px; font-weight: 500; border: 1px solid var(--border-color); cursor: pointer; transition: background-color 0.3s; }
+        .keyword-list li:hover { background-color: var(--secondary-color); color: #fff; }
+
+        /* FAQ 섹션 */
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background-color: #fff; transition: background-color 0.3s; }
+        .faq-question h4 { margin: 0; font-size: 1.1em; color: var(--primary-color); font-weight: 600; }
+        .faq-question:hover { background-color: var(--bg-light); }
+        .faq-question::after { content: '+'; font-size: 1.5em; color: var(--secondary-color); transition: transform 0.3s; font-weight: 300; }
+        .faq-item.active .faq-question::after { content: '-'; transform: rotate(180deg); }
+        .faq-answer { display: none; padding: 20px; background-color: var(--bg-light); border-top: 1px solid var(--border-color); color: var(--light-text-color); line-height: 1.6; }
+        .faq-item.active .faq-answer { display: block; }
+
+        /* 통계 표 및 그래프 */
+        .data-visualization { background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-top: 30px; }
+        .data-visualization h4 { text-align: center; font-size: 1.5em; color: var(--primary-color); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid var(--border-color); padding: 12px; text-align: left; font-size: 0.95em; }
+        th { background-color: var(--bg-medium); color: var(--primary-color); font-weight: 600; }
+        td { background-color: #fff; }
+        .highlight-row { background-color: rgba(255, 87, 34, 0.1); font-weight: 600; }
+
+        /* 푸터: 사이트 정보 및 링크 */
+        footer { background-color: var(--primary-color); color: #fff; padding: 40px 20px; font-size: 0.9em; text-align: center; }
+        footer .footer-links a { color: #fff; text-decoration: none; margin: 0 10px; transition: color 0.3s; opacity: 0.8; }
+        footer .footer-links a:hover { text-decoration: underline; opacity: 1; }
+        footer p { margin: 10px 0; opacity: 0.9; }
+        .contact-info { margin-top: 20px; font-size: 1em; }
+        .contact-info p { margin: 5px 0; }
+        .external-links { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .external-links a { display: block; margin: 5px 0; color: #fff; opacity: 0.7; }
+        .external-links a:hover { text-decoration: underline; opacity: 1; }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.2em; }
+            .cta-btn { padding: 15px 30px; font-size: 1.1em; }
+            .compare-form-box { padding: 25px; margin-top: 30px; }
+            .form-row { flex-direction: column; gap: 10px; }
+            .form-row > div { min-width: 100%; }
+            .content-section { padding: 40px 0; }
+            .content-section h2 { font-size: 2em; }
+            .feature-grid .item { width: 100%; margin: 0; }
+        }
+        
+        /* 텍스트 스타일링 */
+        .large-text { font-size: 1.2em; color: var(--primary-color); font-weight: 500; }
+        .info-box { background-color: #fff; padding: 25px; border-radius: 8px; border-left: 5px solid var(--accent-color); margin: 25px 0; line-height: 1.7; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .note { color: var(--text-color); font-style: italic; font-size: 0.9em; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="/">인터넷실비보험 비교센터</a></h1>
+        </div>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- 히어로 섹션: 실비보험 검색의 시작점 -->
+        <section class="hero">
+            <div class="container">
+                <h1>2026년 <span>4세대 실손보험</span>, 최저가 견적을 지금 바로 확인하세요!</h1>
+                <p>수많은 보험사의 상품을 한눈에 비교하고, 비급여 할인/할증 기준까지 꼼꼼하게 분석해 드립니다.</p>
+                <!-- 실시간 비교견적 폼 -->
+                <div class="compare-form-box">
+                    <h2>나에게 가장 유리한 실비보험료 실시간 비교 견적</h2>
+                    <p class="large-text">간단한 정보 입력으로 보험사별 <span>실비보험료</span>를 1분 만에 비교할 수 있습니다.</p>
+                    <form action="#" method="post">
+                        <div class="form-row">
+                            <div>
+                                <label for="birthdate">생년월일</label>
+                                <input type="text" id="birthdate" placeholder="예: 19901001" required>
+                            </div>
+                            <div>
+                                <label for="gender">성별</label>
+                                <select id="gender" required>
+                                    <option value="">선택</option>
+                                    <option value="male">남성</option>
+                                    <option value="female">여성</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label for="name">이름</label>
+                                <input type="text" id="name" placeholder="이름을 입력하세요" required>
+                            </div>
+                            <div>
+                                <label for="phone">연락처</label>
+                                <input type="tel" id="phone" placeholder="휴대폰 번호를 입력하세요" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label for="existing_insurance">기존 실비보험 가입 여부</label>
+                                <select id="existing_insurance">
+                                    <option value="no">없음 (신규 가입)</option>
+                                    <option value="yes">있음 (갱신/전환 상담)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="medical_history">최근 5년간 병력 고지사항</label>
+                                <select id="medical_history">
+                                    <option value="no">없음</option>
+                                    <option value="yes">있음 (상담 필요)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit" class="cta-btn">실시간 최저가 견적 받기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 핵심 컨텐츠 섹션 1: 인터넷 실비보험의 장점 -->
+        <section class="content-section bg-white">
+            <div class="container">
+                <h2>왜 <span>인터넷 실비보험</span>을 선택해야 할까요?</h2>
+                <p>
+                    실손의료보험(이하 실비보험)은 질병이나 상해로 인해 병원 치료를 받았을 때 실제 지출한 의료비를 보장해주는 보험 상품으로, '제2의 국민건강보험'이라고 불릴 만큼 필수적인 보험입니다.
+                    과거에는 설계사를 통해 가입하는 것이 일반적이었지만, 최근에는 <span>인터넷 실비보험 비교</span>를 통해 고객이 직접 가입하는 다이렉트 채널의 비중이 급격히 늘어나고 있습니다.
+                    인터넷 실비보험은 여러 가지 장점을 가지고 있어, 특히 <span>실비보험 저렴한곳</span>을 찾는 소비자들에게 최적의 선택지입니다.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/FF5722/fff?text=COST" alt="비용 절감 아이콘">
+                        <h4>압도적인 보험료 절감 효과</h4>
+                        <p>설계사 수수료와 중간 유통 마진이 없어 일반 설계사 채널 대비 10~20% 저렴합니다. <span>다이렉트 실비보험</span>의 가장 큰 매력입니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/2ECC71/fff?text=COMPARE" alt="비교 분석 아이콘">
+                        <h4>여러 보험사 상품 한눈에 비교</h4>
+                        <p>저희 사이트와 같은 <span>실비보험 비교견적</span> 플랫폼을 이용하면, 여러 보험사의 상품을 동일 조건으로 놓고 비교할 수 있습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/2F6FD5/fff?text=TIME" alt="시간 절약 아이콘">
+                        <h4>언제 어디서든 간편한 가입</h4>
+                        <p>시간과 장소에 구애받지 않고 24시간 온라인으로 견적 확인부터 가입까지 진행할 수 있습니다. 바쁜 현대인에게 최적화된 방법입니다.</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <strong>[2026년 실비보험 가입 트렌드]</strong>
+                    <p>2026년 현재, 실비보험 가입자의 약 30% 이상이 인터넷 다이렉트 채널을 이용하고 있습니다. 특히 4세대 실손보험 도입 이후 보험사별 비급여 할인/할증 기준이 중요해지면서, 여러 회사의 조건을 비교해주는 온라인 비교 서비스 이용률이 급증하고 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 핵심 컨텐츠 섹션 2: 2026년 4세대 실손보험 완벽 분석 -->
+        <section class="content-section">
+            <div class="container">
+                <h2><span>2026년 기준 4세대 실손보험</span> 완벽 해부</h2>
+                <p>
+                    실비보험은 가입 시기에 따라 1세대, 2세대, 3세대, 4세대로 구분됩니다. 2021년 7월 이후 출시된 4세대 실비보험은 기존 세대와는 확연히 다른 특징을 가지고 있습니다. <span>실비보험 가입조건</span>을 알아볼 때 가장 중요한 4세대 실손보험의 핵심 내용을 살펴보겠습니다.
+                </p>
+
+                <h3>1. 급여/비급여 분리 및 자기부담금 변경 (핵심 변화)</h3>
+                <p>
+                    4세대 실비보험은 주계약(필수 급여)과 특약(선택 비급여)이 완전히 분리되어 있습니다. 이는 과도한 의료 쇼핑을 방지하고, 보험료 부담의 형평성을 높이기 위한 조치입니다.
+                    급여 항목은 국민건강보험이 적용되는 진료비로, 자기부담금이 20%로 상향되었습니다. 비급여 항목은 도수치료, 주사제, MRI 등 건강보험이 적용되지 않는 진료비로, 자기부담금이 30%입니다.
+                    예를 들어, 급여 항목 치료비가 10만원 발생하면 8만원을 돌려받고(자기부담금 20%), 비급여 항목 치료비가 10만원 발생하면 7만원을 돌려받는 구조입니다.
+                </p>
+
+                <h3>2. 비급여 진료량에 따른 보험료 할인/할증 제도 (가장 중요한 특징)</h3>
+                <p>
+                    4세대 실비보험의 가장 혁신적인 변화는 비급여 특약에 적용되는 보험료 차등제입니다. 2026년 현재 이 제도가 정착 단계에 접어들면서, 가입자의 의료 이용 행태에 따라 다음 해 보험료가 달라집니다.
+                    <br>할인/할증 기준은 다음과 같습니다:
+                </p>
+                <div class="data-visualization">
+                    <h4>4세대 실손보험 비급여 할인/할증 등급 기준 (2026년)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>등급</th>
+                                <th>비급여 보험금 수령액 (2년 기준)</th>
+                                <th>다음 갱신 시 보험료 적용</th>
+                                <th>해당 가입자 비율 (2025년 기준)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1등급 (할인)</td>
+                                <td>0원 (비급여 미청구)</td>
+                                <td>약 5% 내외 할인</td>
+                                <td>약 72%</td>
+                            </tr>
+                            <tr>
+                                <td>2등급 (유지)</td>
+                                <td>100만원 미만</td>
+                                <td>보험료 변동 없음 (갱신율 적용)</td>
+                                <td>약 20%</td>
+                            </tr>
+                            <tr>
+                                <td>3등급 (할증)</td>
+                                <td>100만원 이상 ~ 150만원 미만</td>
+                                <td>100% 할증</td>
+                                <td>약 5%</td>
+                            </tr>
+                            <tr>
+                                <td>4등급 (할증)</td>
+                                <td>150만원 이상 ~ 300만원 미만</td>
+                                <td>200% 할증</td>
+                                <td>약 2%</td>
+                            </tr>
+                            <tr>
+                                <td>5등급 (할증)</td>
+                                <td>300만원 이상</td>
+                                <td>300% 할증 (최대 할증)</td>
+                                <td>약 1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="note">※ 갱신 시점 2년 동안의 비급여 진료 실적에 따라 결정됩니다. 할증된 보험료는 다음 갱신 시점에 다시 원상태로 돌아갈 수 있습니다.</p>
+                </div>
+                <p>
+                    이러한 제도는 비급여 진료를 자주 이용하지 않는 대다수 가입자에게는 보험료 할인을 받을 수 있는 기회를 제공하지만, 반대로 도수치료나 비급여 주사제를 자주 받는 분들에게는 보험료 부담이 크게 증가할 수 있음을 의미합니다.
+                    따라서 <span>인터넷 실비보험</span> 가입 시 본인의 의료 이용 성향을 반드시 고려해야 합니다.
+                </p>
+
+                <h3>3. 기존 1~3세대 실비보험 가입자 주의사항 (2026년 업데이트)</h3>
+                <p>
+                    기존 1세대, 2세대, 3세대 실비보험 가입자들은 15년마다 재가입을 통해 보장 내용이 변경될 수 있습니다. 2013년 4월부터 2017년 3월까지 판매된 2세대 실비보험 가입자들의 재가입 시기가 2028년부터 도래합니다.
+                    현재 <span>4세대 실손보험</span>으로 전환을 고민하는 분들이 많습니다.
+                    <br>전환을 고려할 때 핵심 체크포인트는 다음과 같습니다:
+                    <ul>
+                        <li><strong>기존 보험료 vs. 4세대 보험료:</strong> 현재 보험료가 부담스럽다면, 4세대로 전환 시 초기 보험료가 크게 낮아질 수 있습니다.</li>
+                        <li><strong>비급여 이용량:</strong> 평소 비급여 진료(도수치료 등)를 자주 이용하는 분이라면 4세대로 전환 시 오히려 할증으로 인해 장기적으로 불리할 수 있습니다.</li>
+                        <li><strong>재가입 주기:</strong> 기존 2세대 실손보험 가입자 중 15년 재가입 주기가 있는 분들은 향후 강제로 보장이 변경될 수 있습니다. 4세대로 전환하는 것이 유리할 수도 있습니다.</li>
+                    </ul>
+                </p>
+            </div>
+        </section>
+
+        <!-- 핵심 컨텐츠 섹션 3: 실비보험 가입 전 체크리스트 및 절약 팁 -->
+        <section class="content-section bg-white">
+            <div class="container">
+                <h2>실비보험 가입 시 <span>보험료 절약</span>을 위한 팁과 체크리스트</h2>
+                <p>
+                    <span>인터넷 실비보험</span>을 가입할 때는 단순히 가격이 저렴한 곳을 찾는 것을 넘어, 보장의 핵심 내용을 꼼꼼히 따져보고 본인에게 맞는 상품을 선택하는 것이 중요합니다.
+                    실비보험 가입 시 반드시 확인해야 할 체크리스트를 통해 현명한 선택을 돕겠습니다.
+                </p>
+
+                <h3>1. 자기부담금 구조와 보장 한도 확인</h3>
+                <p>
+                    실비보험은 가입자가 일정 금액을 먼저 부담하고 남은 금액을 보험사에서 보상하는 구조입니다. 4세대 실비보험은 급여 20%, 비급여 30%의 자기부담률이 적용됩니다.
+                    실비보험 가입 시에는 이 자기부담금을 정확히 인지하고, 연간 보장 한도(입원 5천만원, 통원 20만원 한도 등)가 충분한지 확인해야 합니다.
+                    또한, 비급여 특약의 경우 통원 진료 시 1회당 공제되는 금액(예: 도수치료 1회당 2만원 또는 30% 중 큰 금액 공제)이 있기 때문에, 이를 고려하여 자신에게 필요한 보장을 설계해야 합니다.
+                </p>
+
+                <h3>2. 비급여 특약 선택의 중요성 (도수치료, MRI, 주사제)</h3>
+                <p>
+                    4세대 실비보험은 비급여 3종(도수치료, 비급여 주사제, MRI/MRA)을 별도의 특약으로 분리하고 있습니다.
+                    <br>특약 가입 시 주의사항:
+                    <ul>
+                        <li><strong>도수치료:</strong> 연간 보장 횟수(예: 50회)와 보장 한도(예: 350만원)를 확인해야 합니다.</li>
+                        <li><strong>비급여 주사제:</strong> 영양제나 미용 목적의 주사제는 보장에서 제외되므로, 질병 치료 목적으로 투여되는 주사제 보장 여부를 확인해야 합니다.</li>
+                        <li><strong>MRI/MRA:</strong> 뇌혈관 질환이나 암 진단 등 필수적인 경우에 보장이 되는지 확인해야 합니다.</li>
+                    </ul>
+                    평소 비급여 진료를 자주 받지 않는다면 비급여 특약을 제외하여 보험료를 절약하는 것도 방법이 될 수 있습니다.
+                </p>
+
+                <h3>3. 기존 보험 중복 가입 여부 확인</h3>
+                <p>
+                    실비보험은 중복 가입이 불가능합니다. 여러 개를 가입하더라도 실제 지출한 의료비를 초과하여 보험금을 받을 수 없습니다.
+                    따라서 <span>인터넷 실비보험</span> 가입 전에 이미 가입된 보험 상품이 있는지 반드시 확인해야 합니다. 보험금 청구 시 서류가 복잡해지거나 불필요한 보험료 지출이 발생할 수 있습니다.
+                    기존 보험이 있다면, <span>실비보험 비교견적</span>을 통해 보장 내용을 분석하고 부족한 부분만 보완하는 것이 현명합니다.
+                </p>
+
+                <div class="info-box">
+                    <strong>[전문가 Tip: 다이렉트 실비보험 비교 시 유병자 실비보험]</strong>
+                    <p>
+                        최근 5년 이내에 중대 질병 진단을 받았거나 장기 치료를 받은 병력이 있는 분들은 일반 <span>인터넷 실비보험</span> 가입이 거절될 수 있습니다.
+                        이런 경우를 위해 유병자 실비보험(간편 심사 실비보험)이 존재합니다. 유병자 실비보험은 일반 실비보험보다 심사 기준이 완화되어 있지만, 보험료가 비싸고 자기부담금 비율이 높을 수 있습니다.
+                        따라서 <span>실비보험 저렴한곳</span>을 찾더라도 본인의 건강 상태에 맞는 정확한 심사를 거쳐야 합니다.
+                    </p>
+                </div>
+
+                <h3>함께 많이 찾는 키워드</h3>
+                <ul class="keyword-list">
+                    <li>#실손보험 비교사이트</li>
+                    <li>#실비보험 추천</li>
+                    <li>#4세대 실비보험 장단점</li>
+                    <li>#비급여 특약 보장 내용</li>
+                    <li>#실비보험 청구방법</li>
+                    <li>#다이렉트 실비보험료 계산</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 핵심 컨텐츠 섹션 4: 실비보험 청구 가이드 및 유의사항 -->
+        <section class="content-section">
+            <div class="container">
+                <h2>실비보험 청구, 더 이상 어렵지 않아요! (간편 청구 가이드)</h2>
+                <p>
+                    <span>인터넷 실비보험</span> 가입만큼이나 중요한 것이 바로 보험금 청구입니다. 아무리 좋은 보험이라도 청구가 복잡하면 무용지물입니다.
+                    특히 4세대 실비보험 가입자들은 비급여 할증을 피하기 위해 청구하지 않는 경우도 있으나, 필요한 진료는 반드시 청구해야 합니다.
+                </p>
+
+                <h3>1. 실비보험 청구 절차 (2026년 기준)</h3>
+                <p>
+                    대부분의 보험사는 모바일 앱이나 홈페이지를 통해 간편하게 보험금을 청구할 수 있습니다.
+                    청구 금액에 따라 필요 서류가 달라지지만, 일반적으로 50만원 이하 소액 청구는 진료비 영수증과 진료비 세부내역서만으로도 가능합니다.
+                    최근에는 병원에서 보험금 청구 대행 서비스를 제공하거나, 제3자 청구 플랫폼(예: 실손24)을 이용하는 방법도 있어 청구 절차가 간편해지고 있습니다.
+                </p>
+
+                <h3>2. 청구 시 필수 서류 목록</h3>
+                <div class="data-visualization">
+                    <h4>실비보험 청구 시 필수 서류 안내</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>청구 금액별 필요 서류 (일반적인 기준)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>통원 치료</td>
+                                <td><strong>3만원 이하:</strong> 진료비 영수증만으로 가능<br><strong>3만원 초과:</strong> 진료비 영수증 + 진료비 세부내역서</td>
+                            </tr>
+                            <tr>
+                                <td>입원 치료</td>
+                                <td>진료비 영수증 + 진료비 세부내역서 + 진단서 (50만원 초과 시)</td>
+                            </tr>
+                            <tr>
+                                <td>추가 서류</td>
+                                <td>진단명 확인이 필요한 경우 의사 소견서, 진단서, 입퇴원 확인서 등</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note">※ 병원마다 서류 발급 비용이 발생할 수 있으므로, 청구 금액이 소액인 경우 합산 청구를 고려할 수 있습니다.</p>
+
+                <h3>3. 실비보험 비보상 항목 (주의사항)</h3>
+                <p>
+                    실비보험은 모든 의료비를 보장하지 않습니다. 특히 4세대 실비보험에서는 비급여 항목에 대한 심사가 까다로워졌습니다.
+                    <br>대표적인 비보상 항목:
+                    <ul>
+                        <li><strong>미용 목적의 성형수술 및 치료:</strong> 미용을 위한 쌍꺼풀 수술, 지방 흡입, 레이저 시술 등은 보상되지 않습니다.</li>
+                        <li><strong>영양제 및 보조 식품:</strong> 의사의 처방 없이 복용하는 비타민, 영양제 등은 보상 대상이 아닙니다.</li>
+                        <li><strong>예방 접종 및 건강 검진 비용:</strong> 질병 예방을 위한 접종이나 단순 건강검진 비용은 보상되지 않습니다.</li>
+                        <li><strong>한약, 보약 등:</strong> 질병 치료 목적이 아닌 보신을 위한 한약재는 보상되지 않습니다.</li>
+                    </ul>
+                    자세한 비보상 항목은 가입한 보험사의 약관을 통해 확인할 수 있습니다.
+                </p>
+
+                <div class="data-visualization">
+                    <h4>실비보험 비보상 항목 관련 통계 (2025년 기준)</h4>
+                    <img src="https://via.placeholder.com/1000x300/F0F4F8/333?text=가입자가+착각하기+쉬운+실비보험+비보상+항목+통계+그래프" alt="실비보험 비보상 항목 통계 이미지" style="width:100%; margin: 20px 0; border-radius: 8px;">
+                    <p class="note">※ 이미지 출처: 금융감독원 보도자료 재구성. (예시)</p>
+                </div>
+                <p>
+                    이처럼 실비보험은 보장 범위에 명확한 기준이 있으므로, 가입 전 꼼꼼한 약관 확인이 필수적입니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="content-section bg-medium">
+            <div class="container">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Q1. 인터넷 실비보험이 설계사 가입보다 저렴한 이유는 무엇인가요?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>인터넷 다이렉트 <span>실비보험</span>은 보험 설계사를 통하지 않고 고객이 직접 온라인으로 가입하기 때문에, 설계사에게 지급되는 수수료와 중간 유통 마진이 절감됩니다. 이로 인해 동일한 보장 내용이라도 일반 채널 대비 평균적으로 10~20%가량 저렴하게 가입할 수 있습니다. <span>실비보험 비교견적</span>을 통해 가격 차이를 직접 확인해 보세요.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Q2. 4세대 실비보험의 가장 큰 특징은 무엇인가요?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p><span>4세대 실손보험</span>은 급여(필수 치료)와 비급여(선택적 치료) 항목의 보험료가 분리되어 있으며, 특히 비급여 항목의 보험료에 할증/할인 제도가 적용됩니다. 즉, 비급여 진료를 많이 받으면 다음 갱신 시 보험료가 할증되고, 진료를 받지 않으면 할인을 받을 수 있습니다. 이는 실손보험의 지속 가능성을 높이기 위한 조치이며, 2026년 현재 가입자 대다수(70% 이상)는 할인을 받고 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Q3. 실비보험 가입 시 어떤 보장을 우선적으로 고려해야 하나요?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p><span>실비보험 가입조건</span>을 알아볼 때 가장 중요한 것은 자기부담금 비율과 비급여 특약의 한도입니다. 4세대 실비보험에서는 비급여 항목을 자주 이용할 경우 보험료 부담이 커지므로, 자신의 건강 상태와 의료 이용 습관에 맞춰 보장 구성을 선택하는 것이 중요합니다. 특히 도수치료, 주사제, MRI 등 비급여 특약의 보장 한도와 횟수를 꼼꼼히 확인하세요.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Q4. 기존 1~3세대 실비보험을 4세대로 전환해야 할까요?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>이는 개인의 상황에 따라 다릅니다. 기존 실비보험의 갱신 보험료가 너무 높거나, 평소 비급여 진료(도수치료 등)를 거의 이용하지 않는다면 4세대로 전환하는 것이 유리할 수 있습니다. 반면, 비급여 진료를 자주 받는다면 기존 보험을 유지하는 것이 유리할 수 있습니다. 정확한 판단을 위해서는 저희 <span>실비보험 비교견적</span> 서비스를 통해 본인의 현재 보험료와 4세대 보험료를 비교해 보는 것이 좋습니다.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Q5. 실비보험 가입 후 언제부터 보장받을 수 있나요?</h4>
+                        </div>
+                        <div class="faq-answer">
+                            <p>실비보험은 가입 후 청약철회 기간(15일)이 지난 이후부터 효력이 발생합니다. 다만, 일부 질병(암, 뇌혈관 질환 등)은 가입 후 일정 기간(면책 기간)이 지나야 보장받을 수 있습니다. 또한, 임신·출산 관련 급여 의료비 보장은 2년의 면책 기간이 적용되므로 약관을 꼼꼼히 확인해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 푸터 섹션 -->
+        <footer>
+            <div class="container">
+                <div class="contact-info">
+                    <p><strong>인터넷실비보험 비교센터</strong></p>
+                    <p>대표: 홍길동 | 사업자등록번호: 123-45-67890 | 통신판매업신고: 제2026-서울강남-00123호</p>
+                    <p>주소: 서울특별시 강남구 테헤란로 123 | 고객센터: 1588-1234</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">광고 및 제휴 문의</a>
+                </div>
+                <div class="external-links">
+                    <h4>실비보험 관련 공신력 있는 외부 정보</h4>
+                    <a href="https://www.fss.or.kr/" target="_blank">금융감독원 (FSS)</a>
+                    <a href="https://www.ins.or.kr/" target="_blank">생명보험협회</a>
+                    <a href="https://www.knia.or.kr/" target="_blank">손해보험협회</a>
+                    <a href="https://www.nhis.or.kr/" target="_blank">국민건강보험공단</a>
+                    <a href="https://namu.wiki/w/%EC%8B%A4%EC%86%90%EC%9D%98%EB%A3%8C%EB%B3%B4%ED%97%98" target="_blank">나무위키 - 실손의료보험</a>
+                </div>
+                <p>본 사이트는 보험 대리점이며, 특정 보험 상품의 판매를 목적으로 하지 않습니다. 고객에게 최적화된 상품 정보를 제공하며, 최종 계약은 해당 보험사 홈페이지에서 직접 진행됩니다.</p>
+                <p>&copy; 2026 인터넷실비보험 비교센터. All rights reserved.</p>
+            </div>
+        </footer>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 토글 기능 (사용자 경험 개선)
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.closest('.faq-item');
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+
+  
